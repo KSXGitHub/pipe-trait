@@ -1,4 +1,4 @@
-//! This crate add `pipe` method to every type.
+//! Add `pipe` method to every type.
 //!
 //! **Example:** Same type
 //!
