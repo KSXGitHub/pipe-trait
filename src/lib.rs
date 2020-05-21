@@ -25,6 +25,7 @@
 //! assert_eq!(a, b);
 //! ```
 
+#![no_std]
 pub use core::marker::Sized;
 
 /// All sized types implement this trait.
