@@ -16,7 +16,6 @@
 //!
 //! ```
 //! # use pipe_trait::*;
-//!
 //! let x = 'x';
 //! let a = x
 //!     .pipe(|x| (x, x, x)) // (char, char, char)
@@ -51,7 +50,6 @@ where
     ///
     /// ```
     /// # use pipe_trait::*;
-    ///
     /// let x = 'x';
     /// let a = x // char
     ///     .pipe(|x| (x, x, x)) // (char, char, char)
