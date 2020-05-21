@@ -6,6 +6,7 @@ authors = ["khai96_ <hvksmr1996@gmail.com>"]
 edition = "2018"
 readme = "README.md"
 license = "MIT"
+documentation = "https://docs.rs/pipe-trait"
 repository = "https://github.com/KSXGitHub/pipe-trait.git"
 include = [
   "/src",
