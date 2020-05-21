@@ -8,6 +8,13 @@ readme = "README.md"
 license = "MIT"
 documentation = "https://docs.rs/pipe-trait"
 repository = "https://github.com/KSXGitHub/pipe-trait.git"
+keywords = [
+  "pipe",
+  "trait",
+  "functional-programming",
+  "pipeline",
+]
+categories = ["no-std"]
 include = [
   "/src",
   "/Cargo.toml",
