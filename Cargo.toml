@@ -11,7 +11,7 @@ repository = "https://github.com/KSXGitHub/pipe-trait.git"
 keywords = [
   "pipe",
   "trait",
-  "functional-programming",
+  "fp",
   "pipeline",
 ]
 categories = ["no-std"]
