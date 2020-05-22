@@ -67,6 +67,7 @@ pub use core::marker::Sized;
 /// All sized types implement this trait.
 pub trait Pipe: Sized {
     /// Apply `f` to `self`.
+    #[inline]
     fn pipe<Return>(self, f: impl FnOnce(Self) -> Return) -> Return {
         f(self)
     }
