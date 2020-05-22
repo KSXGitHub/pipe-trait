@@ -16,7 +16,7 @@ use pipe_trait::*;
 fn log<X: Debug>(x: X) -> X {
     println!("value: {:?}", x);
     x
-};
+}
 my_future
     .pipe(log)
     .await
