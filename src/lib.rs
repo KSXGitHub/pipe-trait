@@ -6,7 +6,6 @@
 //! # async {
 //! # use std::fmt::*;
 //! # use futures::future::*;
-//! # use pipe_trait::*;
 //! # #[derive(Debug, Copy, Clone)]
 //! # struct Num(pub i32);
 //! # impl Num {
@@ -17,6 +16,7 @@
 //! #     pub fn future(self) -> Ready<Self> { ready(self) }
 //! # }
 //! # let my_future = Num(12).future();
+//! use pipe_trait::*;
 //! fn log<X: Debug>(x: X) -> X {
 //!     println!("value: {:?}", x);
 //!     x
@@ -39,7 +39,7 @@
 //! **Example:** Same type
 //!
 //! ```
-//! # use pipe_trait::*;
+//! use pipe_trait::*;
 //! let inc = |x| x + 1;
 //! let double = |x| x + x;
 //! let square = |x| x * x;
@@ -51,7 +51,7 @@
 //! **Example:** Type transformation
 //!
 //! ```
-//! # use pipe_trait::*;
+//! use pipe_trait::*;
 //! let x = 'x';
 //! let a = x
 //!     .pipe(|x| (x, x, x)) // (char, char, char)
