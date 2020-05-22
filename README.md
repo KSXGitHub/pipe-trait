@@ -3,6 +3,7 @@
 [![Test](https://github.com/KSXGitHub/pipe-trait/workflows/Test/badge.svg)](https://github.com/KSXGitHub/pipe-trait/actions?query=workflow%3ATest)
 [![Travis Build Status](https://travis-ci.org/KSXGitHub/pipe-trait.svg?branch=master)](https://travis-ci.org/KSXGitHub/pipe-trait)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=KSXGitHub/pipe-trait)](https://dependabot.com)
+[![Crates.io Version](https://img.shields.io/crates/v/pipe-trait)](https://crates.io/crates/pipe-trait)
 
 Add `pipe` method to every type.
 
