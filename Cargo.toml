@@ -21,3 +21,6 @@ include = [
   "/README.md",
   "/LICENSE.md",
 ]
+
+[dev-dependencies]
+futures = "^0.3.5"

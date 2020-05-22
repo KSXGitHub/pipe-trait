@@ -8,6 +8,28 @@ Add `pipe` method to every type.
 
 ## Usage Examples
 
+### Pipe amongst method chain
+
+```rust
+use pipe_trait::*;
+fn log<X: Debug>(x: X) -> X {
+    println!("value: {:?}", x);
+    x
+};
+my_future
+    .pipe(log)
+    .await
+    .pipe(log)
+    .inc()
+    .pipe(log)
+    .double()
+    .pipe(log)
+    .square()
+    .pipe(log)
+    .get()
+    .pipe(log);
+```
+
 ### Same type
 
 ```rust

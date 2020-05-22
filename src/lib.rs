@@ -1,5 +1,41 @@
 //! Add `pipe` method to every type.
 //!
+//! **Example:** Pipe amongst method chain
+//!
+//! ```
+//! # async {
+//! # use std::fmt::*;
+//! # use futures::future::*;
+//! # use pipe_trait::*;
+//! # #[derive(Debug, Copy, Clone)]
+//! # struct Num(pub i32);
+//! # impl Num {
+//! #     pub fn inc(&self) -> Self { Self(self.0 + 1) }
+//! #     pub fn double(&self) -> Self { Self(self.0 * 2) }
+//! #     pub fn square(&self) -> Self { Self(self.0 * self.0) }
+//! #     pub fn get(&self) -> i32 { self.0 }
+//! #     pub fn future(self) -> Ready<Self> { ready(self) }
+//! # }
+//! # let my_future = Num(12).future();
+//! fn log<X: Debug>(x: X) -> X {
+//!     println!("value: {:?}", x);
+//!     x
+//! };
+//! my_future
+//!     .pipe(log)
+//!     .await
+//!     .pipe(log)
+//!     .inc()
+//!     .pipe(log)
+//!     .double()
+//!     .pipe(log)
+//!     .square()
+//!     .pipe(log)
+//!     .get()
+//!     .pipe(log);
+//! # };
+//! ```
+//!
 //! **Example:** Same type
 //!
 //! ```
