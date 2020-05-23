@@ -5,7 +5,7 @@
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=KSXGitHub/pipe-trait)](https://dependabot.com)
 [![Crates.io Version](https://img.shields.io/crates/v/pipe-trait?logo=rust)](https://crates.io/crates/pipe-trait)
 
-Add `pipe` method to every type.
+Make it possible to chain regular functions.
 
 ## Usage Examples
 

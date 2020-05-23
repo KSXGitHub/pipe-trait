@@ -1,4 +1,4 @@
-//! Add `pipe` method to every type.
+//! Make it possible to chain regular functions.
 //!
 //! **Example:** Pipe amongst method chain
 //!

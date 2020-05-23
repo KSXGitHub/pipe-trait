@@ -1,6 +1,6 @@
 [package]
 name = "pipe-trait"
-description = "Add `pipe` method to every type"
+description = "Make it possible to chain regular functions"
 version = "0.1.9"
 authors = ["khai96_ <hvksmr1996@gmail.com>"]
 edition = "2018"
