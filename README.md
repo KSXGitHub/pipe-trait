@@ -9,28 +9,6 @@ Make it possible to chain regular functions.
 
 ## Usage Examples
 
-### Pipe amongst method chain
-
-```rust
-use pipe_trait::*;
-fn log<X: Debug>(x: X) -> X {
-    println!("value: {:?}", x);
-    x
-}
-my_future
-    .pipe(log)
-    .await
-    .pipe(log)
-    .inc()
-    .pipe(log)
-    .double()
-    .pipe(log)
-    .square()
-    .pipe(log)
-    .get()
-    .pipe(log);
-```
-
 ### Same type
 
 ```rust
@@ -54,6 +32,28 @@ let a = x
     .pipe(|x| format!("{:?}", x)); // String
 let b = "[('x', 'x', 'x'), ('x', 'x', 'x')]";
 assert_eq!(a, b);
+```
+
+### Pipe amongst method chain
+
+```rust
+use pipe_trait::*;
+fn log<X: Debug>(x: X) -> X {
+    println!("value: {:?}", x);
+    x
+}
+my_future
+    .pipe(log)
+    .await
+    .pipe(log)
+    .inc()
+    .pipe(log)
+    .double()
+    .pipe(log)
+    .square()
+    .pipe(log)
+    .get()
+    .pipe(log);
 ```
 
 ## License
