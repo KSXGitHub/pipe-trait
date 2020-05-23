@@ -74,6 +74,16 @@ pub trait Pipe {
     {
         f(self)
     }
+
+    /// Apply `f` to `&self`.
+    fn pipe_ref<Return>(&self, f: impl FnOnce(&Self) -> Return) -> Return {
+        f(self)
+    }
+
+    /// Apply `f` to `&mut self`.
+    fn pipe_mut<Return>(&mut self, f: impl FnOnce(&mut Self) -> Return) -> Return {
+        f(self)
+    }
 }
 
 impl<X> Pipe for X {}

@@ -36,3 +36,23 @@ fn trait_object() {
     }
     run("abc");
 }
+
+#[test]
+#[allow(clippy::blacklisted_name)]
+fn pipe_ref() {
+    #[derive(Debug, PartialEq, Eq)]
+    struct FooBar(i32);
+    let foo = FooBar(12);
+    let bar = foo.pipe_ref(|x| x.0).pipe(FooBar);
+    assert_eq!(foo, bar);
+}
+
+#[test]
+#[allow(clippy::blacklisted_name)]
+fn pipe_mut() {
+    #[derive(Debug, PartialEq, Eq)]
+    struct Foo(i32);
+    let mut foo = Foo(0);
+    foo.pipe_mut(|x| x.0 = 32);
+    assert_eq!(foo, Foo(32));
+}
