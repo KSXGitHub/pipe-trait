@@ -7,6 +7,18 @@
 
 Make it possible to chain regular functions.
 
+## APIs
+
+By adding `use pipe_trait::*`, 3 methods are added to all types:
+
+|    identifier    |   pipe syntax   | traditional syntax |
+|:----------------:|:---------------:|:------------------:|
+| `Pipe::pipe`     | `x.pipe(f)`     | `f(x)`             |
+| `Pipe::pipe_ref` | `x.pipe_ref(f)` | `f(&x)`            |
+| `Pipe::pipe_mut` | `x.pipe_mut(f)` | `f(&mut x)`        |
+
+Read [the docs](https://docs.rs/pipe-trait) for more information.
+
 ## Usage Examples
 
 ### Same type
