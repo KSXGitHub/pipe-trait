@@ -68,6 +68,17 @@ pub use core::marker::Sized;
 /// All sized types implement this trait.
 pub trait Pipe {
     /// Apply `f` to `self`.
+    ///
+    /// ```
+    /// # #[derive(Debug, PartialEq, Eq)]
+    /// # struct Foo(i32);
+    /// # fn double(x: i32) -> i32 { x * 2 }
+    /// # use pipe_trait::*;
+    /// assert_eq!(
+    ///     12.pipe(double).pipe(Foo),
+    ///     Foo(double(12)),
+    /// )
+    /// ```
     #[inline]
     fn pipe<Return>(self, f: impl FnOnce(Self) -> Return) -> Return
     where
@@ -77,12 +88,33 @@ pub trait Pipe {
     }
 
     /// Apply `f` to `&self`.
+    ///
+    /// ```
+    /// # use pipe_trait::*;
+    /// #[derive(Debug, PartialEq, Eq)]
+    /// struct Foo(i32);
+    /// let a = Foo(12);
+    /// let b = a
+    ///     .pipe_ref(|a| a.0) // a is not moved
+    ///     .pipe(Foo);
+    /// assert_eq!(a, b); // a is used again
+    /// ```
     #[inline]
     fn pipe_ref<Return>(&self, f: impl FnOnce(&Self) -> Return) -> Return {
         f(self)
     }
 
     /// Apply `f` to `&mut self`.
+    ///
+    /// ```
+    /// # use pipe_trait::*;
+    /// #[derive(Debug, PartialEq, Eq)]
+    /// struct Foo(i32, i32);
+    /// let mut a = Foo(0, 0);
+    /// a.pipe_mut(|a| a.0 = 12);
+    /// a.pipe_mut(|a| a.1 = 34);
+    /// assert_eq!(a, Foo(12, 34));
+    /// ```
     #[inline]
     fn pipe_mut<Return>(&mut self, f: impl FnOnce(&mut Self) -> Return) -> Return {
         f(self)
