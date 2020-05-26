@@ -100,7 +100,7 @@ pub trait Pipe {
     /// assert_eq!(a, b); // a is used again
     /// ```
     #[inline]
-    fn pipe_ref<Return>(&self, f: impl FnOnce(&Self) -> Return) -> Return {
+    fn pipe_ref<'a, Return>(&'a self, f: impl FnOnce(&'a Self) -> Return) -> Return {
         f(self)
     }
 
