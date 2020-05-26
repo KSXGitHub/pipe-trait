@@ -49,6 +49,17 @@ fn pipe_ref() {
 
 #[test]
 #[allow(clippy::blacklisted_name)]
+fn pipe_ref_lifetime_bound() {
+    #[derive(Debug, PartialEq, Eq)]
+    struct Foo;
+    fn f(foo: &'_ Foo) -> &'_ Foo {
+        foo
+    }
+    Foo.pipe_ref(f).pipe_ref(f);
+}
+
+#[test]
+#[allow(clippy::blacklisted_name)]
 fn pipe_mut() {
     #[derive(Debug, PartialEq, Eq)]
     struct Foo(i32);
