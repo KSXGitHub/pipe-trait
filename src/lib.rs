@@ -116,7 +116,7 @@ pub trait Pipe {
     /// assert_eq!(a, Foo(12, 34));
     /// ```
     #[inline]
-    fn pipe_mut<Return>(&mut self, f: impl FnOnce(&mut Self) -> Return) -> Return {
+    fn pipe_mut<'a, Return>(&'a mut self, f: impl FnOnce(&'a mut Self) -> Return) -> Return {
         f(self)
     }
 }

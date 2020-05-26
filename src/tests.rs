@@ -80,13 +80,15 @@ fn pipe_mut_lifetime_bound() {
         }
     }
 
-    let expected = Foo::new().set_0(123).set_1(456).set_2(789);
+    let mut expected = Foo::new();
+    let expected = expected.set_0(123).set_1(456).set_2(789);
 
     fn modify(foo: &mut Foo) -> &mut Foo {
         foo.set_0(123).set_1(456).set_2(789);
         foo
     }
-    let actual = Foo::new().pipe_mut(modify);
+    let mut actual = Foo::new();
+    let actual = actual.pipe_mut(modify);
 
     assert_eq!(actual, expected);
 }
