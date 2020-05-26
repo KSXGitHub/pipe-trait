@@ -56,3 +56,37 @@ fn pipe_mut() {
     foo.pipe_mut(|x| x.0 = 32);
     assert_eq!(foo, Foo(32));
 }
+
+#[test]
+#[allow(clippy::blacklisted_name)]
+fn pipe_mut_lifetime_bound() {
+    #[derive(Debug, PartialEq, Eq)]
+    struct Foo(i32, i32, i32);
+    impl Foo {
+        pub fn new() -> Self {
+            Self(0, 0, 0)
+        }
+        pub fn set_0(&mut self, x: i32) -> &mut Self {
+            self.0 = x;
+            self
+        }
+        pub fn set_1(&mut self, x: i32) -> &mut Self {
+            self.1 = x;
+            self
+        }
+        pub fn set_2(&mut self, x: i32) -> &mut Self {
+            self.2 = x;
+            self
+        }
+    }
+
+    let expected = Foo::new().set_0(123).set_1(456).set_2(789);
+
+    fn modify(foo: &mut Foo) -> &mut Foo {
+        foo.set_0(123).set_1(456).set_2(789);
+        foo
+    }
+    let actual = Foo::new().pipe_mut(modify);
+
+    assert_eq!(actual, expected);
+}
