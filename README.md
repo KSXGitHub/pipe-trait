@@ -2,7 +2,6 @@
 
 [![Test](https://github.com/KSXGitHub/pipe-trait/workflows/Test/badge.svg)](https://github.com/KSXGitHub/pipe-trait/actions?query=workflow%3ATest)
 [![Travis Build Status](https://img.shields.io/travis/KSXGitHub/pipe-trait/master?label=build&logo=travis)](https://travis-ci.org/KSXGitHub/pipe-trait)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=KSXGitHub/pipe-trait)](https://dependabot.com)
 [![Crates.io Version](https://img.shields.io/crates/v/pipe-trait?logo=rust)](https://crates.io/crates/pipe-trait)
 
 Make it possible to chain regular functions.
