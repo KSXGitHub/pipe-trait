@@ -68,6 +68,20 @@ my_future
     .pipe(log);
 ```
 
+### Explicit type annotation
+
+```rust
+use pipe_trait::*;
+let x = "abc".to_string();
+let a = x
+    .pipe_ref::<&str, _>(AsRef::as_ref)
+    .chars()
+    .pipe::<Box<_>, _>(Box::new)
+    .collect::<Vec<_>>();
+let b = vec!['a', 'b', 'c'];
+assert_eq!(a, b);
+```
+
 ## License
 
 [MIT](https://git.io/JfgHW) © [Hoàng Văn Khải](https://github.com/KSXGitHub/)

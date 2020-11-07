@@ -61,6 +61,20 @@
 //! # };
 //! ```
 //!
+//! **Example:** Explicit type annotation
+//!
+//! ```
+//! use pipe_trait::*;
+//! let x = "abc".to_string();
+//! let a = x
+//!     .pipe_ref::<&str, _>(AsRef::as_ref)
+//!     .chars()
+//!     .pipe::<Box<_>, _>(Box::new)
+//!     .collect::<Vec<_>>();
+//! let b = vec!['a', 'b', 'c'];
+//! assert_eq!(a, b);
+//! ```
+//!
 
 #![no_std]
 pub use core::marker::Sized;
@@ -80,9 +94,10 @@ pub trait Pipe {
     /// )
     /// ```
     #[inline]
-    fn pipe<Return>(self, f: impl FnOnce(Self) -> Return) -> Return
+    fn pipe<Return, Function>(self, f: Function) -> Return
     where
         Self: Sized,
+        Function: FnOnce(Self) -> Return,
     {
         f(self)
     }
@@ -100,7 +115,10 @@ pub trait Pipe {
     /// assert_eq!(a, b); // a is used again
     /// ```
     #[inline]
-    fn pipe_ref<'a, Return>(&'a self, f: impl FnOnce(&'a Self) -> Return) -> Return {
+    fn pipe_ref<'a, Return, Function>(&'a self, f: Function) -> Return
+    where
+        Function: FnOnce(&'a Self) -> Return,
+    {
         f(self)
     }
 
@@ -116,7 +134,10 @@ pub trait Pipe {
     /// assert_eq!(a, Foo(12, 34));
     /// ```
     #[inline]
-    fn pipe_mut<'a, Return>(&'a mut self, f: impl FnOnce(&'a mut Self) -> Return) -> Return {
+    fn pipe_mut<'a, Return, Function>(&'a mut self, f: Function) -> Return
+    where
+        Function: FnOnce(&'a mut Self) -> Return,
+    {
         f(self)
     }
 }
