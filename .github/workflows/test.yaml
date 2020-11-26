@@ -118,7 +118,7 @@ jobs:
             ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
             ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
 
-      - uses: actions-rs/toolchain@v1.0.6
+      - uses: actions-rs/toolchain@v1.0.7
         with:
           profile: minimal
           toolchain: ${{ matrix.rust }}
@@ -148,7 +148,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions-rs/toolchain@v1.0.6
+      - uses: actions-rs/toolchain@v1.0.7
         with:
           profile: minimal
           toolchain: ${{ matrix.rust }}
