@@ -2,7 +2,7 @@
 //!
 //! **API Overview:**
 //!
-//! By adding `use pipe_trait::*`, 3 methods are added to all types:
+//! By adding `use pipe_trait::*`, 9 methods are added to all types:
 //!
 //! |        identifier       |       pipe syntax      |  traditional syntax |
 //! |:-----------------------:|:----------------------:|:-------------------:|
