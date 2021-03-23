@@ -10,11 +10,17 @@ Make it possible to chain regular functions.
 
 By adding `use pipe_trait::*`, 3 methods are added to all types:
 
-|    identifier    |   pipe syntax   | traditional syntax |
-|:----------------:|:---------------:|:------------------:|
-| `Pipe::pipe`     | `x.pipe(f)`     | `f(x)`             |
-| `Pipe::pipe_ref` | `x.pipe_ref(f)` | `f(&x)`            |
-| `Pipe::pipe_mut` | `x.pipe_mut(f)` | `f(&mut x)`        |
+|        identifier       |       pipe syntax      |  traditional syntax |
+|:-----------------------:|:----------------------:|:-------------------:|
+| `Pipe::pipe`            | `x.pipe(f)`            | `f(x)`              |
+| `Pipe::pipe_ref`        | `x.pipe_ref(f)`        | `f(&x)`             |
+| `Pipe::pipe_mut`        | `x.pipe_mut(f)`        | `f(&mut x)`         |
+| `Pipe::pipe_as_ref`     | `x.pipe_as_ref(f)`     | `f(x.as_ref())`     |
+| `Pipe::pipe_as_mut`     | `x.pipe_as_mut(f)`     | `f(x.as_mut())`     |
+| `Pipe::pipe_deref`      | `x.pipe_deref(f)`      | `f(&x)`             |
+| `Pipe::pipe_deref_mut`  | `x.pipe_deref_mut(f)`  | `f(&mut x)`         |
+| `Pipe::pipe_borrow`     | `x.pipe_borrow(f)`     | `f(x.borrow())`     |
+| `Pipe::pipe_borrow_mut` | `x.pipe_borrow_mut(f)` | `f(x.borrow_mut())` |
 
 Read [the docs](https://docs.rs/pipe-trait) for more information.
 
