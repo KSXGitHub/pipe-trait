@@ -87,7 +87,7 @@
 //!
 
 #![no_std]
-pub use core::marker::Sized;
+use core::marker::Sized;
 
 /// All sized types implement this trait.
 pub trait Pipe {
