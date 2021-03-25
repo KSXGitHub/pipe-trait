@@ -88,4 +88,4 @@ assert_eq!(a, b);
 
 ## License
 
-[MIT](https://git.io/JfgHW) © [Hoàng Văn Khải](https://github.com/KSXGitHub/)
+[MIT](https://git.io/JfgHW) © [Hoàng Văn Khải](https://ksxgithub.github.io/)
