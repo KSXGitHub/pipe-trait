@@ -14,7 +14,7 @@ keywords = [
   "fp",
   "pipeline",
 ]
-categories = ["no-std"]
+categories = ["no-std", "rust-patterns"]
 include = [
   "/src",
   "/Cargo.toml",
