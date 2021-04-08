@@ -1,6 +1,11 @@
 {
   "pinVersions": false,
+  "timezone": "Vietnam/Hanoi",
+  "schedule": [
+    "after 5am on sunday"
+  ],
   "extends": [
     "config:base"
-  ]
+  ],
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json"
 }
