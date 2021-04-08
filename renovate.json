@@ -1,8 +1,7 @@
 {
   "pinVersions": false,
-  "timezone": "Vietnam/Hanoi",
   "schedule": [
-    "after 5am on sunday"
+    "every weekend"
   ],
   "extends": [
     "config:base"
