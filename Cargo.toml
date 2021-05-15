@@ -23,4 +23,4 @@ include = [
 ]
 
 [dev-dependencies]
-futures = "^0.3.14"
+futures = "^0.3.15"
