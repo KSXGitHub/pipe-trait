@@ -10,38 +10,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache Rust Cargo Registry
+      - name: Cache
         uses: actions/cache@v2.1.6
         timeout-minutes: 1
         continue-on-error: true
         with:
-          path: ~/.cargo/registry
-          key: ${{ github.job }}-cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          path: |
+            ~/.cargo
+            target
+          key: ${{ github.job }}-${{ runner.os }}-${{ hashFiles('Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-registry-${{ runner.os }}-
-
-      - name: Cache Rust Cargo Index
-        uses: actions/cache@v2.1.6
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/git
-          key: ${{ github.job }}-cargo-index-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ github.job }}-cargo-index-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-index-${{ runner.os }}-
-
-      - name: Cache Rust Build
-        uses: actions/cache@v2.1.6
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: target
-          key: ${{ github.job }}-build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ github.job }}-build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-build-${{ runner.os }}-
+            ${{ github.job }}-${{ runner.os }}-${{ hashFiles('Cargo.lock') }}
+            ${{ github.job }}-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1
         with:
@@ -61,38 +41,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache Rust Cargo Registry
+      - name: Cache
         uses: actions/cache@v2.1.6
         timeout-minutes: 1
         continue-on-error: true
         with:
-          path: ~/.cargo/registry
-          key: ${{ github.job }}-cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          path: |
+            ~/.cargo
+            target
+          key: ${{ github.job }}-${{ runner.os }}-${{ hashFiles('Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-registry-${{ runner.os }}-
-
-      - name: Cache Rust Cargo Index
-        uses: actions/cache@v2.1.6
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/git
-          key: ${{ github.job }}-cargo-index-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ github.job }}-cargo-index-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-index-${{ runner.os }}-
-
-      - name: Cache Rust Build
-        uses: actions/cache@v2.1.6
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: target
-          key: ${{ github.job }}-build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ github.job }}-build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-build-${{ runner.os }}-
+            ${{ github.job }}-${{ runner.os }}-${{ hashFiles('Cargo.lock') }}
+            ${{ github.job }}-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1.0.7
         with:
