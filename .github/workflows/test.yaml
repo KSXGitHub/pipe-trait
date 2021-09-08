@@ -24,7 +24,6 @@ jobs:
           restore-keys: |
             ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-${{ hashFiles('Cargo.lock') }}
             ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-
-            ${{ github.job }}-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1
         with:
@@ -58,7 +57,6 @@ jobs:
           restore-keys: |
             ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-${{ hashFiles('Cargo.lock') }}
             ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-
-            ${{ github.job }}-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1.0.7
         with:
