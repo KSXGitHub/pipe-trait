@@ -123,11 +123,7 @@ jobs:
           default: 'true'
 
       - name: Use clippy to lint code
-        uses: actions-rs/clippy-check@v1
-        with:
-          name: Clippy Report (${{ matrix.rust }}, ${{ matrix.os }})
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-features --all-targets -- -D warnings
+        run: cargo clippy -- -D warnings
 
   fmt_check:
     name: Fmt
