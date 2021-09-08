@@ -12,8 +12,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        rust:
-          - '1.43.0'
         os:
           - ubuntu-latest
 
@@ -26,10 +24,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/registry
-          key: ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-cargo-registry-${{ runner.os }}-
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v2.1.6
@@ -37,10 +35,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/git
-          key: ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-cargo-index-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-index-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-cargo-index-${{ runner.os }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v2.1.6
@@ -48,15 +46,14 @@ jobs:
         continue-on-error: true
         with:
           path: target
-          key: ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-build-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: ${{ matrix.rust }}
           override: 'true'
           default: 'true'
 
@@ -73,8 +70,6 @@ jobs:
 
     strategy:
       matrix:
-        rust:
-          - '1.43.0'
         os:
           - ubuntu-latest
 
@@ -87,10 +82,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/registry
-          key: ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-cargo-registry-${{ runner.os }}-
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v2.1.6
@@ -98,10 +93,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/git
-          key: ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-cargo-index-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-index-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-cargo-index-${{ runner.os }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v2.1.6
@@ -109,15 +104,14 @@ jobs:
         continue-on-error: true
         with:
           path: target
-          key: ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-build-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1.0.7
         with:
           profile: minimal
-          toolchain: ${{ matrix.rust }}
           components: clippy
           override: 'true'
           default: 'true'
@@ -132,8 +126,6 @@ jobs:
 
     strategy:
       matrix:
-        rust:
-          - '1.43.0'
         os:
           - ubuntu-latest
 
@@ -143,7 +135,6 @@ jobs:
       - uses: actions-rs/toolchain@v1.0.7
         with:
           profile: minimal
-          toolchain: ${{ matrix.rust }}
           components: rustfmt
           override: 'true'
           default: 'true'
