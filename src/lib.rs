@@ -161,7 +161,7 @@ pub trait Pipe {
     }
 
     /// Apply `f` to `&self` where `f` takes a single parameter of type `Param`
-    /// and `Self` implements trait `AsRef<Param>`.
+    /// and `Self` implements trait [`AsRef<Param>`].
     ///
     /// ```
     /// # use pipe_trait::*;
@@ -183,7 +183,7 @@ pub trait Pipe {
     }
 
     /// Apply `f` to `&mut self` where `f` takes a single parameter of type `Param`
-    /// and `Self` implements trait `AsMut<Param>`.
+    /// and `Self` implements trait [`AsMut<Param>`].
     ///
     /// ```
     /// # use pipe_trait::*;
@@ -227,7 +227,7 @@ pub trait Pipe {
     }
 
     /// Apply `f` to `&mut self` where `f` takes a single parameter of type `Param`
-    /// and `Self` implements trait `DerefMut<Target = Param>`.
+    /// and `Self` implements trait [`DerefMut<Target = Param>`].
     ///
     /// ```
     /// # use pipe_trait::*;
@@ -249,7 +249,7 @@ pub trait Pipe {
     }
 
     /// Apply `f` to `&self` where `f` takes a single parameter of type `Param`
-    /// and `Self` implements trait `Borrow<Param>`.
+    /// and `Self` implements trait [`Borrow<Param>`].
     ///
     /// ```
     /// # use pipe_trait::*;
@@ -271,7 +271,7 @@ pub trait Pipe {
     }
 
     /// Apply `f` to `&mut self` where `f` takes a single parameter of type `Param`
-    /// and `Self` implements trait `BorrowMut<Param>`.
+    /// and `Self` implements trait [`BorrowMut<Param>`].
     ///
     /// ```
     /// # use pipe_trait::*;
