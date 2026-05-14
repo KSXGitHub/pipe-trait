@@ -3,7 +3,8 @@ name: Publish
 on:
   push:
     tags:
-      - 'v*'
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-*'
 
 permissions: {}
 
@@ -38,8 +39,7 @@ jobs:
           set -euo pipefail
           crate_version="$(cargo metadata --format-version 1 --no-deps --locked \
             | jq -r '.packages[] | select(.name == "pipe-trait") | .version')"
-          tag_version="${GIT_REF#v}"
-          if [ "$crate_version" != "$tag_version" ]; then
+          if [ "$crate_version" != "$GIT_REF" ]; then
             echo "Tag $GIT_REF does not match Cargo.toml version $crate_version" >&2
             exit 1
           fi
