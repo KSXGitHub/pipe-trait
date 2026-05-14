@@ -1,88 +1,72 @@
 name: Test
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   test:
     name: Test
-
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Cache
-        uses: actions/cache@v3
-        timeout-minutes: 1
-        continue-on-error: true
+      - uses: actions/checkout@v6
         with:
-          path: |
-            ~/.cargo
-            target
-          key: ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-${{ hashFiles('Cargo.lock') }}
-          restore-keys: |
-            ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-${{ hashFiles('Cargo.lock') }}
-            ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-
+          persist-credentials: false
 
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          override: 'true'
-          default: 'true'
+      - name: Install toolchain from rust-toolchain
+        run: rustup show active-toolchain || rustup toolchain install
 
       - name: Build
         run: cargo build --locked
 
       - name: Test
-        run: cargo test
+        run: cargo test --locked
 
-  clippy_check:
+  clippy:
     name: Clippy
-
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Cache
-        uses: actions/cache@v3
-        timeout-minutes: 1
-        continue-on-error: true
+      - uses: actions/checkout@v6
         with:
-          path: |
-            ~/.cargo
-            target
-          key: ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-${{ hashFiles('Cargo.lock') }}
-          restore-keys: |
-            ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-${{ hashFiles('Cargo.lock') }}
-            ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-
+          persist-credentials: false
 
-      - uses: actions-rs/toolchain@v1.0.7
-        with:
-          profile: minimal
-          components: clippy
-          override: 'true'
-          default: 'true'
+      - name: Install toolchain from rust-toolchain
+        run: rustup show active-toolchain || rustup toolchain install
 
-      - name: Use clippy to lint code
-        run: cargo clippy -- -D warnings
+      - name: Install clippy
+        run: rustup component add clippy
 
-  fmt_check:
+      - name: Lint
+        run: cargo clippy --locked --all-targets -- -D warnings
+
+  fmt:
     name: Fmt
-
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions-rs/toolchain@v1.0.7
+      - uses: actions/checkout@v6
         with:
-          profile: minimal
-          components: rustfmt
-          override: 'true'
-          default: 'true'
+          persist-credentials: false
+
+      - name: Install toolchain from rust-toolchain
+        run: rustup show active-toolchain || rustup toolchain install
+
+      - name: Install rustfmt
+        run: rustup component add rustfmt
 
       - name: Check code formatting
-        run: cargo fmt -- --check
+        run: cargo fmt --all -- --check
