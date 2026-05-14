@@ -1,0 +1,63 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish to crates.io
+    runs-on: ubuntu-latest
+    environment: crates-io
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Install toolchain from rust-toolchain
+        run: rustup show active-toolchain || rustup toolchain install
+
+      - name: Verify tag matches crate version
+        env:
+          GIT_REF: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          crate_version="$(cargo metadata --format-version 1 --no-deps --locked \
+            | jq -r '.packages[] | select(.name == "pipe-trait") | .version')"
+          tag_version="${GIT_REF#v}"
+          if [ "$crate_version" != "$tag_version" ]; then
+            echo "Tag $GIT_REF does not match Cargo.toml version $crate_version" >&2
+            exit 1
+          fi
+
+      - name: Build
+        run: cargo build --locked
+
+      - name: Test
+        run: cargo test --locked
+
+      - name: Package (dry run)
+        run: cargo publish --locked --dry-run
+
+      - name: Authenticate with crates.io
+        id: auth
+        uses: rust-lang/crates-io-auth-action@bbd81622f20ce9e2dd9622e3218b975523e45bbe # v1.0.4
+
+      - name: Publish
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
+        run: cargo publish --locked
