@@ -28,19 +28,58 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+          fetch-depth: 2
 
       - name: Install toolchain from rust-toolchain
         run: rustup show active-toolchain || rustup toolchain install
 
-      - name: Verify tag matches crate version
+      - name: Verify release commit
         env:
           GIT_REF: ${{ github.ref_name }}
         run: |
           set -euo pipefail
+
+          subject="$(git log -1 --pretty=%s HEAD)"
+          if [ "$subject" != "$GIT_REF" ]; then
+            echo "release commit subject must equal the tag '$GIT_REF'; got: '$subject'" >&2
+            exit 1
+          fi
+
+          changed="$(git diff --name-only HEAD^ HEAD | LC_ALL=C sort | paste -sd, -)"
+          if [ "$changed" != "Cargo.lock,Cargo.toml" ]; then
+            echo "release commit must touch only Cargo.toml and Cargo.lock; got: $changed" >&2
+            exit 1
+          fi
+
+          expected_toml="$(mktemp)"
+          git show HEAD^:Cargo.toml | awk -v v="$GIT_REF" '
+            /^\[package\]/ { in_pkg=1; print; next }
+            /^\[/ { in_pkg=0; print; next }
+            in_pkg && /^version = / { print "version = \"" v "\""; next }
+            { print }
+          ' > "$expected_toml"
+          if ! diff -u "$expected_toml" Cargo.toml; then
+            echo "Cargo.toml diff contains changes beyond bumping [package].version to $GIT_REF" >&2
+            exit 1
+          fi
+
+          expected_lock="$(mktemp)"
+          git show HEAD^:Cargo.lock | awk -v v="$GIT_REF" '
+            /^\[\[package\]\]/ { in_pkg=1; name=""; print; next }
+            /^\[/ { in_pkg=0; print; next }
+            in_pkg && /^name = "pipe-trait"$/ { name="pipe-trait" }
+            in_pkg && name == "pipe-trait" && /^version = / { print "version = \"" v "\""; next }
+            { print }
+          ' > "$expected_lock"
+          if ! diff -u "$expected_lock" Cargo.lock; then
+            echo "Cargo.lock diff contains changes beyond bumping pipe-trait version to $GIT_REF" >&2
+            exit 1
+          fi
+
           crate_version="$(cargo metadata --format-version 1 --no-deps --locked \
             | jq -r '.packages[] | select(.name == "pipe-trait") | .version')"
           if [ "$crate_version" != "$GIT_REF" ]; then
-            echo "Tag $GIT_REF does not match Cargo.toml version $crate_version" >&2
+            echo "tag $GIT_REF does not match Cargo.toml [package].version $crate_version" >&2
             exit 1
           fi
 
